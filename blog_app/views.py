@@ -1,5 +1,10 @@
 from django.shortcuts import render, get_object_or_404
+from rest_framework.response import Response
+from rest_framework.decorators import APIView
+
 from blog_app.models import Post
+from blog_app.serializers import PostSerializer
+from rest_framework.viewsets import ModelViewSet
 
 # Create your views here.
 def get_all_posts(request):
@@ -9,5 +14,16 @@ def get_all_posts(request):
 def details(request, blog_id=None):
     details = get_object_or_404(Post, pk = blog_id)
     return render(request, 'details.html', {'post':details})
+
+# Hello world using REST API
+class helloWorldView(APIView):
+
+    def get(self, request):
+        return Response({'message':'Hello World!'})
+    
+class PostView(ModelViewSet):
+    queryset = Post.objects.all()
+    serializer_class = PostSerializer
+
 
 
