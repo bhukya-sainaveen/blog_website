@@ -1,10 +1,13 @@
 from django.shortcuts import render, get_object_or_404
 from rest_framework.response import Response
 from rest_framework.decorators import APIView
+from rest_framework.viewsets import ModelViewSet
+from rest_framework.permissions import IsAuthenticated
 
 from blog_app.models import Post
 from blog_app.serializers import PostSerializer
-from rest_framework.viewsets import ModelViewSet
+
+
 
 # Create your views here.
 def get_all_posts(request):
@@ -22,6 +25,7 @@ class helloWorldView(APIView):
         return Response({'message':'Hello World!'})
     
 class PostView(ModelViewSet):
+    permission_classes = [IsAuthenticated]
     queryset = Post.objects.all()
     serializer_class = PostSerializer
 
