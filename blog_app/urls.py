@@ -13,5 +13,7 @@ urlpatterns = [
 ] + static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
 
 router = routers.SimpleRouter()
-router.register('post', views.PostView)
+router.register('post', views.PostView, basename='post')
 urlpatterns += router.urls
+
+
